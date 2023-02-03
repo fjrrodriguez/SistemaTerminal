@@ -1,5 +1,7 @@
 package com.ramirez.julieth.terminaltransporte.repository.models;
 
+import java.util.List;
+
 public class Bus {
     private int id;
     private String empresa;
@@ -45,12 +47,19 @@ public class Bus {
         this.capacidad = capacidad;
     }
 
-    @Override
-    public String toString() {
+    public String toStringB() {
         return "Bus{" +
                 "id=" + id +
                 ", empresa='" + empresa + '\'' +
                 ", capacidad=" + capacidad +
                 '}';
+    }
+
+    public void subirPasajeroBus(Pasajero pasajero) {
+        this.capacidad = capacidad;
+    }
+
+    public void agregarDestino(List<Destino> miDestino) {
+        this.capacidad = capacidad;
     }
 }

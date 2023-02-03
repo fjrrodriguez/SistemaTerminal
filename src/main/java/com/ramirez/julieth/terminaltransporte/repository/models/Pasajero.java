@@ -35,8 +35,7 @@ public class Pasajero {
         this.ps = ps;
     }
 
-    @Override
-    public String toString() {
+    public String toStringP() {
         return "Pasajero{" +
                 "cedula=" + cedula +
                 ", nombre='" + nombre + '\'' +

@@ -10,4 +10,7 @@ public class TerminalTransporteApplication {
 		SpringApplication.run(TerminalTransporteApplication.class, args);
 	}
 
+	void run(String... args) throws Exception {
+
+	}
 }

@@ -1,6 +1,7 @@
 package com.ramirez.julieth.terminaltransporte.repository;
 
 import com.ramirez.julieth.terminaltransporte.repository.models.Bus;
+import com.ramirez.julieth.terminaltransporte.repository.models.Destino;
 import com.ramirez.julieth.terminaltransporte.repository.models.Pasajero;
 import com.ramirez.julieth.terminaltransporte.repository.models.Viaje;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -18,6 +20,7 @@ public class TerminalCentro {
     private String nombreEmpresa;
     private int capacidadBus;
     private String vs;
+    private int idDestino;
     private String destinoViaje;
     private int horaSalida;
     private int minutoSalida;
@@ -28,8 +31,9 @@ public class TerminalCentro {
     private String nombrePasajero;
 
     List<Bus> buseslist;
-    List<Viaje> viajeslist;
+    List<Destino> destinoList;
     List<Pasajero>pasajeroList;
+    List<Viaje> viajeList;
 
     public TerminalCentro(){
         buseslist = new ArrayList<>(List.of(
@@ -45,13 +49,13 @@ public class TerminalCentro {
                 new Bus("10", 5011,"Autocar",15)
         ));
 
-        viajeslist =  new ArrayList<>(List.of(
-                new Viaje("1", "Bogota", LocalTime.of(8,30),LocalTime.of(9,30)),
-                new Viaje("2", "Bogota", LocalTime.of(14,00),LocalTime.of(15,00)),
-                new Viaje("3", "Medellin", LocalTime.of(9,30),LocalTime.of(12,30)),
-                new Viaje("4", "Medellin", LocalTime.of(14,00),LocalTime.of(17,00)),
-                new Viaje("5", "Cali", LocalTime.of(6,00),LocalTime.of(9,30)),
-                new Viaje("6", "Cali", LocalTime.of(13,00),LocalTime.of(16,30))
+        destinoList =  new ArrayList<>(List.of(
+                new Destino("1", 1,"Bogota", LocalTime.of(8,30),LocalTime.of(9,30)),
+                new Destino("2", 2,"Bogota", LocalTime.of(14,00),LocalTime.of(15,00)),
+                new Destino("3", 3,"Medellin", LocalTime.of(9,30),LocalTime.of(12,30)),
+                new Destino("4", 4, "Medellin", LocalTime.of(14,00),LocalTime.of(17,00)),
+                new Destino("5", 5, "Cali", LocalTime.of(6,00),LocalTime.of(9,30)),
+                new Destino("6", 6, "Cali", LocalTime.of(13,00),LocalTime.of(16,30))
                 ));
 
         pasajeroList = new ArrayList<>(List.of(
@@ -65,8 +69,8 @@ public class TerminalCentro {
     public void registrarNuevoBus(Bus bus){
         buseslist = new ArrayList<>(List.of( new Bus(UUID.randomUUID().toString(), idBus,nombreEmpresa,capacidadBus)));
     }
-    public void registrarNuevoViaje(Viaje viaje){
-        viajeslist = new ArrayList<>(List.of( new Viaje(UUID.randomUUID().toString(), destinoViaje,LocalTime.of(horaSalida,minutoSalida),LocalTime.of(horaLlegada,minutoLlegada))));
+    public void registrarNuevoDestino(Destino destino){
+        destinoList = new ArrayList<>(List.of( new Destino(UUID.randomUUID().toString(), idDestino, destinoViaje,LocalTime.of(horaSalida,minutoSalida),LocalTime.of(horaLlegada,minutoLlegada))));
     }
     public void registrarNuevoPasajero(Pasajero pasajero){
         pasajeroList = new ArrayList<>(List.of( new Pasajero(UUID.randomUUID().toString(), idPasajero,nombrePasajero)));
@@ -74,8 +78,8 @@ public class TerminalCentro {
     public void cargarBuses(Bus bus){
        buseslist.add(bus);
     }
-    public void cargarViaje(Viaje viaje){
-        viajeslist.add(viaje);
+    public void cargarDestino(Destino destino){
+        destinoList.add(destino);
     }
     public void cargarPasajero(Pasajero pasajero){
         pasajeroList.add(pasajero);
@@ -85,16 +89,16 @@ public class TerminalCentro {
         return buseslist;
     }
 
-    public List<Viaje> getViajeslist() {
-        return viajeslist;
+    public List<Destino> getDestinoList() {
+        return destinoList;
     }
 
     public void setBuseslist(List<Bus> buseslist) {
         this.buseslist = buseslist;
     }
 
-    public void setViajeslist(List<Viaje> viajeslist) {
-        this.viajeslist = viajeslist;
+    public void setDestinoList(List<Destino> destinoList) {
+        this.destinoList = destinoList;
     }
 
     public List<Pasajero> getPasajeroList() {
@@ -105,5 +109,48 @@ public class TerminalCentro {
         this.pasajeroList = pasajeroList;
     }
 
+
+    /**
+     * public void subirPasajeroBus(Pasajero pasajero, String bs) {
+     *         List<Bus> subir = buseslist.stream().map(buspas -> {
+     *             if(buspas.getBs().equals(bs)){
+     *                 buspas.subirPasajeroBus(pasajero);
+     *                 return buspas;
+     *             }
+     *             return buspas;
+     *         }).collect(Collectors.toList());
+     *     }
+     *
+     *
+     *
+     * public void obtenerDestino(String vs, String bs){
+     *         List<Destino> miDestino = destinoList.stream().
+     *                 filter(dest ->dest.equals(vs)).collect(Collectors.toList());
+     *         List<Bus> busDestino = buseslist.stream().map(busdest ->{
+     *             if(busdest.getBs().equals(bs)){
+     *                 busdest.agregarDestino(miDestino);
+     *                 return busdest;
+     *             }
+     *             return busdest;
+     *         }).collect(Collectors.toList());
+     *
+     *     }
+     *
+     */
+
+    public List<Bus> busOcupado(String bs) {
+        List<Bus> busOcupado = buseslist.stream().filter(bus -> bus.getBs().equals(bs)).collect(Collectors.toList());
+        return busOcupado;
+    }
+    public List<Destino> miDestino(String vs){
+        List<Destino> miDestino = destinoList.stream().filter(destino -> destino.getVs().equals(vs)).collect(Collectors.toList());
+        return miDestino;
+    }
+    public void crearViaje(Viaje viaje){
+
+    }
+    public void iniciarViaje(List<Bus> busOcupado, List<Destino> miDestino){
+
+    }
 }
 
