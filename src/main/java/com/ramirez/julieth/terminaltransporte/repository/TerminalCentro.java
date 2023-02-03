@@ -7,9 +7,7 @@ import com.ramirez.julieth.terminaltransporte.repository.models.Viaje;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -29,6 +27,7 @@ public class TerminalCentro {
     private String ps;
     private  int idPasajero;
     private String nombrePasajero;
+    private int idViaje;
 
     List<Bus> buseslist;
     List<Destino> destinoList;
@@ -75,6 +74,9 @@ public class TerminalCentro {
     public void registrarNuevoPasajero(Pasajero pasajero){
         pasajeroList = new ArrayList<>(List.of( new Pasajero(UUID.randomUUID().toString(), idPasajero,nombrePasajero)));
     }
+    public void registrarNuevoViaje(Viaje viaje){
+        viajeList = new ArrayList<>(List.of(new Viaje(UUID.randomUUID().toString(), idViaje, (Bus) busOcupado(bs),pasajeroList, (Destino) miDestino(vs))));
+    }
     public void cargarBuses(Bus bus){
        buseslist.add(bus);
     }
@@ -83,6 +85,17 @@ public class TerminalCentro {
     }
     public void cargarPasajero(Pasajero pasajero){
         pasajeroList.add(pasajero);
+    }
+    public void cargarViaje(Viaje viaje){
+        viajeList.add(viaje);
+    }
+
+    public List<Viaje> getViajeList() {
+        return viajeList;
+    }
+
+    public void setViajeList(List<Viaje> viajeList) {
+        this.viajeList = viajeList;
     }
 
     public List<Bus> getBuseslist() {
@@ -146,9 +159,7 @@ public class TerminalCentro {
         List<Destino> miDestino = destinoList.stream().filter(destino -> destino.getVs().equals(vs)).collect(Collectors.toList());
         return miDestino;
     }
-    public void crearViaje(Viaje viaje){
 
-    }
     public void iniciarViaje(List<Bus> busOcupado, List<Destino> miDestino){
 
     }

@@ -3,38 +3,47 @@ package com.ramirez.julieth.terminaltransporte.repository.models;
 import java.util.List;
 
 public class Viaje {
-    private int idDestino;
-    private List<Bus> busOcupado;
-    private List<Destino> miDestino;
+    private int idViaje;
+    private Bus busOcupado;
+    private Destino destinobus;
+    private List<Pasajero> pasajerosABordo;
 
-    public Viaje(int idDestino, List<Bus> busOcupado, List<Destino> miDestino) {
-        this.idDestino = idDestino;
+    public Viaje(String s, int idViaje, Bus busOcupado, List<Pasajero> pasajerosABordo, Destino destinobus) {
+        this.idViaje = idViaje;
         this.busOcupado = busOcupado;
-        this.miDestino = miDestino;
-
+        this.pasajerosABordo = pasajerosABordo;
+        this.destinobus = destinobus;
     }
 
-    public int getIdDestino() {
-        return idDestino;
+    public Destino getDestinobus() {
+        return destinobus;
     }
 
-    public void setIdDestino(int idDestino) {
-        this.idDestino = idDestino;
+    public void setDestinobus(Destino destinobus) {
+        this.destinobus = destinobus;
     }
 
-    public List<Bus> getBusOcupado() {
+    public int getIdViaje() {
+        return idViaje;
+    }
+
+    public void setIdViaje(int idViaje) {
+        this.idViaje = idViaje;
+    }
+
+    public Bus getBusOcupado() {
         return busOcupado;
     }
 
-    public void setBusOcupado(List<Bus> busOcupado) {
+    public void setBusOcupado(Bus busOcupado) {
         this.busOcupado = busOcupado;
     }
 
-    public List<Destino> getMiDestino() {
-        return miDestino;
+    public List<Pasajero> getPasajerosABordo() {
+        return pasajerosABordo;
     }
 
-    public void setMiDestino(List<Destino> miDestino) {
-        this.miDestino = miDestino;
+    public void setPasajerosABordo(List<Pasajero> pasajerosABordo) {
+        this.pasajerosABordo = pasajerosABordo;
     }
 }
