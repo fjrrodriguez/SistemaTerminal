@@ -22,6 +22,7 @@ public class BusesService implements IBusesService{
                 bus.getId(),
                 bus.getEmpresa(),
                 bus.getCapacidad());
+        this.terminalCentro.cargarBuses(busesTotal);
         return busesTotal;
     }
 }

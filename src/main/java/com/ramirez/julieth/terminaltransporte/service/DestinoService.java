@@ -23,6 +23,7 @@ public class DestinoService implements IDestinoService {
                 destino.getDestino(),
                 destino.getHora_llegada(),
                 destino.getHora_salida());
+        this.terminalCentro.cargarDestino(destinoSel);
         return destinoSel;
     }
 }

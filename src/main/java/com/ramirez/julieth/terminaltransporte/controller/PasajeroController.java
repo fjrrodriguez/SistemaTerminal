@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/pasajer")
+@RequestMapping("api/pas")
 public class PasajeroController {
 
     @Autowired
@@ -20,8 +20,9 @@ public class PasajeroController {
         return new ResponseEntity(pasajeroService.pasajerosTerminal() , HttpStatus.FOUND);
     }
 
-    @PostMapping("/saveProduc")
-    public ResponseEntity listaPasajero(@RequestBody Pasajero pasajero) {
-        return new ResponseEntity(pasajeroService.cargarPasajerosTerminal(pasajero), HttpStatus.CREATED);
+    @PostMapping("/savePasajer")
+    public ResponseEntity agragarpasajero(@RequestBody Pasajero pasajero) {
+        pasajeroService.cargarPasajerosTerminal(pasajero);
+        return new ResponseEntity(pasajero,HttpStatus.ACCEPTED);
     }
 }

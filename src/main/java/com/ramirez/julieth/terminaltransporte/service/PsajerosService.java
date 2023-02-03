@@ -22,6 +22,7 @@ public class PsajerosService implements IPasajeroService{
         Pasajero pasajerosTotal = new Pasajero(UUID.randomUUID().toString(),
                 pasajero.getCedula(),
                 pasajero.getNombre());
+        this.terminalCentro.cargarPasajero(pasajerosTotal);
         return pasajerosTotal;
     }
 }
